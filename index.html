@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .container{
+            display: grid;
+            grid-template-columns: repeat(5,1fr);
+            grid-template-rows: repeat(5,1fr);
+            height: 100vh;
+            width: 100vw;
+            grid-gap: 10px;
+        }
+        .a{
+            grid-column: 2;
+            grid-row: 1;
+        }
+        .b{
+            grid-column: 4;
+            grid-row: 1;
+        }
+        .c{
+            display: flex;
+            grid-column: 3;
+            grid-row: 1;
+            align-items: center;
+            justify-content: center;
+        }
+        button{
+            height: 200px;
+            width: 200px;
+        }
+        .c button{
+            width: 100px;
+            height: 20px;
+        }
+        .cuadros{
+            width: 200px;
+            height: 200px;
+            border: 5px solid black;
+        }
+        .cuadro1{
+            grid-column: 2;
+            grid-row: 2;
+        }
+        .cuadro2{
+            grid-column: 3;
+            grid-row: 2;
+        }
+        .cuadro3{
+            grid-column: 4;
+            grid-row: 2;
+        }
+        .cuadro4{
+             grid-column: 2;
+             grid-row: 3;
+         }
+        .cuadro5{
+             grid-column: 3;
+             grid-row: 3;
+         }
+        .cuadro6{
+             grid-column: 4;
+             grid-row: 3;
+         }
+        .cuadro7{
+            grid-column: 2;
+            grid-row: 4;
+        }
+        .cuadro8{
+            grid-column: 3;
+            grid-row: 4;
+        }
+        .cuadro9{
+            grid-column: 4;
+            grid-row: 4;
+        }
+        .rojo{
+            background-color: red;
+        }
+        .verde{
+            background-color: green;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@2.1.8/dist/vue.js"></script>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="a">
+        <p>JUGADOR 1</p>
+        <input type="text" v-model="p1">
+        <p v-text="'Nombre: '+p1">
+        <p>{{$data}}</p>
+    </div>
+    <div class="c">
+        <button @click="">Cambiar</button>
+    </div>
+    <div class="b">
+        <p>JUGADOR 2</p>
+        <input type="text" v-model="p2">
+        <p v-text="'Nombre: '+p2">
+    </div>
+    <div class="cuadros cuadro1">
+        <button @click="pulsado" :class="{'rojo':!color,'verde':color}"></button>
+    </div>
+    <div class="cuadros cuadro2">
+        <button @click="pulsado" :class="{'rojo':!color,'verde':color}"></button>
+    </div>
+    <div class="cuadros cuadro3">
+        <button></button>
+    </div>
+    <div class="cuadros cuadro4">
+        <button></button>
+    </div>
+    <div class="cuadros cuadro5">
+            <button></button>
+        </div>
+    <div class="cuadros cuadro6">
+            <button></button>
+        </div>
+    <div class="cuadros cuadro7">
+            <button></button>
+        </div>
+    <div class="cuadros cuadro8">
+            <button></button>
+        </div>
+    <div class="cuadros cuadro9">
+            <button></button>
+        </div>
+</div>
+<script>
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            p1:'',
+            p2:'',
+            turno:0,
+            tablero:[],
+            color:'',
+            btn:null
+        },
+        methods:{
+            pulsado(e,pos){
+                this.turno++;
+                this.btn=e.target;
+                this.color=this.turno%2==0
+            }
+        }
+    })
+    document.querySelectorAll('button').forEach((
+        obj,i) => obj.addEventListener('click',(e) => this.pulsado(e,i)));
+</script>
+</body>
+</html>
