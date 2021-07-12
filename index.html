@@ -19,32 +19,10 @@
             width: 100vw;
             grid-gap: 10px;
         }
-        .a{
-            grid-column: 2;
-            grid-row: 1;
-        }
-        .b{
-            grid-column: 4;
-            grid-row: 1;
-        }
-        .c{
-            display: flex;
-            grid-column: 3;
-            grid-row: 1;
-            align-items: center;
-            justify-content: center;
-        }
-        button{
-            height: 200px;
-            width: 200px;
-        }
-        .c button{
-            width: 100px;
-            height: 20px;
-        }
+
         .cuadros{
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             border: 5px solid black;
         }
         .cuadro1{
@@ -94,69 +72,82 @@
 </head>
 <body>
 <div class="container" id="app">
-    <div class="a">
-        <p>JUGADOR 1</p>
-        <input type="text" v-model="p1">
-        <p v-text="'Nombre: '+p1">
-        <p>{{$data}}</p>
-    </div>
     <div class="c">
-        <button @click="">Cambiar</button>
+        <input type="button" value="REINICIAR">
     </div>
-    <div class="b">
-        <p>JUGADOR 2</p>
-        <input type="text" v-model="p2">
-        <p v-text="'Nombre: '+p2">
-    </div>
-    <div class="cuadros cuadro1">
-        <button @click="pulsado" :class="{'rojo':!color,'verde':color}"></button>
-    </div>
-    <div class="cuadros cuadro2">
-        <button @click="pulsado" :class="{'rojo':!color,'verde':color}"></button>
-    </div>
-    <div class="cuadros cuadro3">
-        <button></button>
-    </div>
-    <div class="cuadros cuadro4">
-        <button></button>
-    </div>
-    <div class="cuadros cuadro5">
-            <button></button>
-        </div>
-    <div class="cuadros cuadro6">
-            <button></button>
-        </div>
-    <div class="cuadros cuadro7">
-            <button></button>
-        </div>
-    <div class="cuadros cuadro8">
-            <button></button>
-        </div>
-    <div class="cuadros cuadro9">
-            <button></button>
-        </div>
+    <div class="cuadros cuadro1" :class="{'rojo':a1==1,'verde':a1==2}" @click="pulsado(1)"></div>
+    <div class="cuadros cuadro2" :class="{'rojo':a2==1,'verde':a2==2}" @click="pulsado(2)"></div>
+    <div class="cuadros cuadro3" :class="{'rojo':a3==1,'verde':a3==2}" @click="pulsado(3)"></div>
+    <div class="cuadros cuadro4" :class="{'rojo':b1==1,'verde':b1==2}" @click="pulsado(4)"></div>
+    <div class="cuadros cuadro5" :class="{'rojo':b2==1,'verde':b2==2}" @click="pulsado(5)"></div>
+    <div class="cuadros cuadro6" :class="{'rojo':b3==1,'verde':b3==2}" @click="pulsado(6)"></div>
+    <div class="cuadros cuadro7" :class="{'rojo':c1==1,'verde':c1==2}" @click="pulsado(7)"></div>
+    <div class="cuadros cuadro8" :class="{'rojo':c2==1,'verde':c2==2}" @click="pulsado(8)"></div>
+    <div class="cuadros cuadro9" :class="{'rojo':c3==1,'verde':c3==2}" @click="pulsado(9)"></div>
 </div>
 <script>
     var vm=new Vue({
         el:"#app",
         data:{
-            p1:'',
-            p2:'',
+            pos:0,
+            a1:0,
+            a2:0,
+            a3:0,
+            b1:0,
+            b2:0,
+            b3:0,
+            c1:0,
+            c2:0,
+            c3:0,
             turno:0,
-            tablero:[],
-            color:'',
-            btn:null
+            comp:0,
+            gana:'',
+            Ganador:''
         },
         methods:{
-            pulsado(e,pos){
-                this.turno++;
-                this.btn=e.target;
-                this.color=this.turno%2==0
+            pulsado(event) {
+                this.pos=event;
+                this.comp=0
+                if(this.gana){
+                    this.pos=0
+                }
+                if(this.pos==1 && this.a1==0){
+                    this.a1=this.turno+1
+                    this.comp=1
+                }if(this.pos==2 && this.a2==0){
+                    this.a2=this.turno+1
+                    this.comp=1
+                }if(this.pos==3 && this.a3==0){
+                    this.a3=this.turno+1
+                    this.comp=1
+                }if(this.pos==4 && this.b1==0){
+                    this.b1=this.turno+1
+                    this.comp=1
+                }if(this.pos==5 && this.b2==0){
+                    this.b2=this.turno+1
+                    this.comp=1
+                }if(this.pos==6 && this.b3==0){
+                    this.b3=this.turno+1
+                    this.comp=1
+                }if(this.pos==7 && this.c1==0){
+                    this.c1=this.turno+1
+                    this.comp=1
+                }if(this.pos==8 && this.c2==0){
+                    this.c2=this.turno+1
+                    this.comp=1
+                }if(this.pos==9 && this.c3==0){
+                    this.c3=this.turno+1
+                    this.comp=1
+                }
+
+                if(this.turno && this.comp){
+                    this.turno=0;
+                }else{
+                    this.turno=1
+                }
             }
         }
     })
-    document.querySelectorAll('button').forEach((
-        obj,i) => obj.addEventListener('click',(e) => this.pulsado(e,i)));
 </script>
 </body>
 </html>
